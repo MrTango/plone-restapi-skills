@@ -1,12 +1,23 @@
 {
-  "$schema": "https://claude.ai/schemas/marketplace.json",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "plone-restapi-skills",
-  "displayName": "Plone REST API Skills",
-  "description": "Skills for working with Plone REST API - backend development and client integration",
+  "version": "1.0.0",
+  "owner": {
+    "name": "MrTango",
+    "email": "maik@planetcrypton.de"
+  },
+  "metadata": {
+    "description": "Skills for working with Plone REST API - backend development and client integration"
+  },
   "plugins": [
     {
       "name": "plone-restapi-skills",
-      "path": "."
+      "description": "Plone REST API skills for backend and client development",
+      "source": "./",
+      "skills": [
+        "./skills/plone-restapi-backend",
+        "./skills/plone-restapi-client"
+      ]
     }
   ]
 }
