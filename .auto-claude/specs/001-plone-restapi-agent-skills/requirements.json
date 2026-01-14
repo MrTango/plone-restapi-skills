@@ -1,0 +1,4 @@
+{
+  "task_description": "We are creating agent skills for Plone Rest-API development and client (TypeScript/Python) usage. The skill cover all Plone Rest-API Usage and Endpoints chapters. The goal is to use it for developing Rest-API endpoints, services and so on on one hand and to develop Rest-API clients in JavaScript/TypeScript and Python. use btca to get the infos from theplone-restapi docs, but not include btca in the agent-skills it self.\n\nhttps://plonerestapi.readthedocs.io/en/latest/",
+  "workflow_type": "feature"
+}

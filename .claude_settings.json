@@ -1,0 +1,34 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read(./**)",
+      "Write(./**)",
+      "Edit(./**)",
+      "Glob(./**)",
+      "Grep(./**)",
+      "Read(/home/maik/develop/claude/plone-restapi-skills/**)",
+      "Write(/home/maik/develop/claude/plone-restapi-skills/**)",
+      "Edit(/home/maik/develop/claude/plone-restapi-skills/**)",
+      "Glob(/home/maik/develop/claude/plone-restapi-skills/**)",
+      "Grep(/home/maik/develop/claude/plone-restapi-skills/**)",
+      "Read(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)",
+      "Write(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)",
+      "Edit(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)",
+      "Bash(*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
+      "mcp__context7__resolve-library-id(*)",
+      "mcp__context7__get-library-docs(*)",
+      "mcp__graphiti-memory__search_nodes(*)",
+      "mcp__graphiti-memory__search_facts(*)",
+      "mcp__graphiti-memory__add_episode(*)",
+      "mcp__graphiti-memory__get_episodes(*)",
+      "mcp__graphiti-memory__get_entity_edge(*)"
+    ]
+  }
+}

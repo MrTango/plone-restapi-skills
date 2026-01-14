@@ -1,0 +1,44 @@
+{
+  "task_description": "Enhance Plone REST API agent skills to comprehensively cover ALL Usage and Endpoints chapters from official documentation. Skills must support both backend development (Python/Plone) and client development (JavaScript/TypeScript/Python).",
+  "scoped_services": ["plone-restapi-backend", "plone-restapi-client"],
+  "files_to_modify": {
+    "backend": [
+      ".claude/skills/plone-restapi-backend/SKILL.md",
+      ".claude/skills/plone-restapi-backend/reference.md"
+    ],
+    "client": [
+      ".claude/skills/plone-restapi-client/SKILL.md",
+      ".claude/skills/plone-restapi-client/reference.md"
+    ]
+  },
+  "files_to_reference": [
+    ".claude/skills/plone-restapi-backend/SKILL.md",
+    ".claude/skills/plone-restapi-client/SKILL.md",
+    "AGENTS.md",
+    "btca.config.jsonc"
+  ],
+  "patterns": {
+    "skill_frontmatter": "YAML with name and description containing trigger keywords",
+    "endpoint_tables": "| Endpoint | Method | Description | format grouped by category",
+    "code_examples": "Complete, runnable code with imports - both JS/TS and Python",
+    "reference_files": "Advanced implementation examples, CLI tools, framework integrations"
+  },
+  "existing_implementations": {
+    "backend_skill": {
+      "current_coverage": ["Services", "ZCML", "Serializers", "Deserializers", "Expandables", "Batching", "Error handling", "Workflow", "Files/Images", "Vocabularies", "Testing"],
+      "potential_gaps": ["Need to verify against official docs chapters"]
+    },
+    "client_skill": {
+      "current_coverage": ["Auth endpoints", "Content CRUD", "Navigation", "Search", "Comments", "Aliases", "Relations", "Sharing", "Translations", "Vocabularies", "Admin endpoints"],
+      "potential_gaps": ["Need to verify ALL endpoints from official docs"]
+    }
+  },
+  "critical_constraints": [
+    "btca used ONLY during implementation - NOT in final skill content",
+    "Skills must be self-contained documentation",
+    "Both JavaScript/TypeScript AND Python examples required",
+    "Must verify coverage against ALL Plone REST API documentation chapters"
+  ],
+  "documentation_source": "https://plonerestapi.readthedocs.io/en/latest/",
+  "created_at": "2026-01-14T16:45:00.000Z"
+}

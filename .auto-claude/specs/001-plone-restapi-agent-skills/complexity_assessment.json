@@ -1,0 +1,70 @@
+{
+  "complexity": "standard",
+  "workflow_type": "feature",
+  "confidence": 0.85,
+  "reasoning": "Creating/extending comprehensive agent skills for Plone REST API. Existing skills (plone-restapi-client + plone-restapi-backend) already have substantial content (~1700 lines total) covering authentication, CRUD, navigation, search, and backend service patterns. Task requires research phase to verify ALL Plone REST API Usage and Endpoints chapters are covered. No infrastructure changes - purely documentation/skill files.",
+
+  "analysis": {
+    "scope": {
+      "estimated_files": 4,
+      "estimated_services": 1,
+      "is_cross_cutting": false,
+      "notes": "Two skill directories (backend + client), each with SKILL.md and reference.md. Existing skills already contain comprehensive endpoint tables, JavaScript/Python client classes, React hooks, async patterns, and backend service/serializer examples. Task is to verify completeness and extend coverage gaps."
+    },
+    "integrations": {
+      "external_services": [],
+      "new_dependencies": [],
+      "research_needed": true,
+      "notes": "btca tool used during research phase to systematically fetch ALL Plone REST API documentation chapters. No external integrations in final deliverable - skills must be self-contained without btca dependency."
+    },
+    "infrastructure": {
+      "docker_changes": false,
+      "database_changes": false,
+      "config_changes": false,
+      "notes": "Pure documentation/skill files. No infrastructure modifications needed."
+    },
+    "knowledge": {
+      "patterns_exist": true,
+      "research_required": true,
+      "unfamiliar_tech": [],
+      "notes": "Existing skills provide established patterns for endpoint tables, language-specific clients, React hooks, and backend services. Research needed to catalog ALL API chapters from official docs (plonerestapi.readthedocs.io) and verify comprehensive coverage."
+    },
+    "risk": {
+      "level": "low",
+      "concerns": [
+        "Completeness - ensuring ALL API chapters are covered",
+        "Accuracy - matching official documentation behavior",
+        "Consistency - maintaining parallel structure between languages/approaches"
+      ],
+      "notes": "No runtime code changes. Risk is limited to documentation quality and completeness."
+    }
+  },
+
+  "recommended_phases": [
+    "discovery",
+    "requirements",
+    "research",
+    "context",
+    "spec_writing",
+    "planning",
+    "validation"
+  ],
+
+  "flags": {
+    "needs_research": true,
+    "needs_self_critique": false,
+    "needs_infrastructure_setup": false
+  },
+
+  "validation_recommendations": {
+    "risk_level": "low",
+    "skip_validation": false,
+    "minimal_mode": true,
+    "test_types_required": [],
+    "security_scan_required": false,
+    "staging_deployment_required": false,
+    "reasoning": "Documentation/skill creation with no functional code changes. Validation should focus on completeness verification against Plone REST API documentation chapters and structural consistency. No automated testing applicable - this is reference documentation, not executable code."
+  },
+
+  "created_at": "2026-01-14T15:32:00.000Z"
+}

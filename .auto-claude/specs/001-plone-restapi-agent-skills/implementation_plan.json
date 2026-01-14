@@ -1,0 +1,419 @@
+{
+  "feature": "Plone REST API Agent Skills Enhancement",
+  "workflow_type": "feature",
+  "workflow_rationale": "Creating comprehensive documentation-based skills by extending existing skill content to cover ALL Plone REST API documentation chapters. This is feature work that enhances existing functionality without infrastructure changes.",
+  "created_at": "2026-01-14T12:24:24.825Z",
+  "updated_at": "2026-01-14T14:44:30.480Z",
+  "status": "human_review",
+  "planStatus": "review",
+  "phases": [
+    {
+      "id": "phase-1-research",
+      "name": "Documentation Research",
+      "type": "implementation",
+      "description": "Use btca to fetch and catalog ALL Plone REST API documentation chapters, identifying gaps in current skill coverage",
+      "depends_on": [],
+      "parallel_safe": false,
+      "subtasks": [
+        {
+          "id": "subtask-1-1",
+          "description": "Fetch complete Plone REST API Usage chapters index using btca",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [
+            "AGENTS.md",
+            "btca.config.jsonc"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Verify btca returned comprehensive list of Usage chapters from ploneRestapi docs"
+          },
+          "implementation_notes": "Run: btca ask -r ploneRestapi -q 'List all Usage chapters and sections in the documentation with their topics'",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-1-2",
+          "description": "Fetch complete Plone REST API Endpoints chapters index using btca",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [
+            "AGENTS.md",
+            "btca.config.jsonc"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Verify btca returned comprehensive list of all documented @-endpoints"
+          },
+          "implementation_notes": "Run: btca ask -r ploneRestapi -q 'List all REST API endpoints (@-endpoints) documented with their HTTP methods and descriptions'",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-1-3",
+          "description": "Create gap analysis document comparing current skills to official docs",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-client/SKILL.md",
+            ".claude/skills/plone-restapi-backend/SKILL.md"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Gap analysis identifies specific missing endpoints, patterns, or examples"
+          },
+          "expected_output": "List of: (1) Missing endpoints, (2) Missing backend patterns, (3) Missing client examples",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "phase-2-backend-enhancement",
+      "name": "Backend Skill Enhancement",
+      "type": "implementation",
+      "description": "Enhance plone-restapi-backend skill with any missing patterns from official documentation",
+      "depends_on": [
+        "phase-1-research"
+      ],
+      "parallel_safe": true,
+      "subtasks": [
+        {
+          "id": "subtask-2-1",
+          "description": "Fetch detailed backend service patterns from official docs using btca",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [
+            "AGENTS.md"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Verify detailed patterns for services, adapters, and ZCML retrieved"
+          },
+          "implementation_notes": "Query btca for: custom services, content negotiation, permission handling, traversal, JSON schema",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-2-2",
+          "description": "Update backend SKILL.md with any missing service patterns",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-backend/SKILL.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-backend/SKILL.md"
+          ],
+          "verification": {
+            "type": "command",
+            "command": "grep -c '## ' .claude/skills/plone-restapi-backend/SKILL.md",
+            "expected": "Number of sections should be >= current count"
+          },
+          "implementation_notes": "Add sections for any missing patterns identified in research phase",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-2-3",
+          "description": "Update backend reference.md with additional advanced examples",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-backend/reference.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-backend/reference.md"
+          ],
+          "verification": {
+            "type": "command",
+            "command": "grep -c '## Example' .claude/skills/plone-restapi-backend/reference.md",
+            "expected": "Number of examples should be >= 7 (current count)"
+          },
+          "implementation_notes": "Add examples for any advanced patterns not yet covered",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "phase-3-client-enhancement",
+      "name": "Client Skill Enhancement",
+      "type": "implementation",
+      "description": "Enhance plone-restapi-client skill with any missing endpoints and client patterns from official documentation",
+      "depends_on": [
+        "phase-1-research"
+      ],
+      "parallel_safe": true,
+      "subtasks": [
+        {
+          "id": "subtask-3-1",
+          "description": "Fetch detailed endpoint documentation for all @-endpoints using btca",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [
+            "AGENTS.md"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Verify comprehensive endpoint details including parameters, request/response formats"
+          },
+          "implementation_notes": "Query btca for each endpoint category: auth, content, search, workflow, admin, etc.",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-3-2",
+          "description": "Update client SKILL.md endpoint tables with any missing endpoints",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "verification": {
+            "type": "command",
+            "command": "grep -c '| `@' .claude/skills/plone-restapi-client/SKILL.md",
+            "expected": "Number of @-endpoints in tables should match official docs count"
+          },
+          "implementation_notes": "Add any missing endpoints to appropriate category tables",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-3-3",
+          "description": "Add JavaScript/TypeScript examples for any new endpoints",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "verification": {
+            "type": "command",
+            "command": "grep -c '```javascript' .claude/skills/plone-restapi-client/SKILL.md",
+            "expected": "JavaScript code blocks cover major endpoint categories"
+          },
+          "implementation_notes": "Ensure every major endpoint category has JS/TS usage example",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-3-4",
+          "description": "Add Python examples for any new endpoints",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-client/SKILL.md"
+          ],
+          "verification": {
+            "type": "command",
+            "command": "grep -c '```python' .claude/skills/plone-restapi-client/SKILL.md",
+            "expected": "Python code blocks cover major endpoint categories"
+          },
+          "implementation_notes": "Ensure every major endpoint category has Python usage example",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-3-5",
+          "description": "Update client reference.md with additional advanced patterns",
+          "service": "skills",
+          "files_to_modify": [
+            ".claude/skills/plone-restapi-client/reference.md"
+          ],
+          "files_to_create": [],
+          "patterns_from": [
+            ".claude/skills/plone-restapi-client/reference.md"
+          ],
+          "verification": {
+            "type": "manual",
+            "instructions": "Reference file contains comprehensive advanced examples for TypeScript, frameworks, and CLI"
+          },
+          "implementation_notes": "Add any advanced client patterns not yet covered (e.g., retry logic, caching, webhooks)",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": "phase-4-verification",
+      "name": "Verification and Cleanup",
+      "type": "integration",
+      "description": "Verify completeness against official documentation, ensure no btca references, and validate code syntax",
+      "depends_on": [
+        "phase-2-backend-enhancement",
+        "phase-3-client-enhancement"
+      ],
+      "parallel_safe": false,
+      "subtasks": [
+        {
+          "id": "subtask-4-1",
+          "description": "Verify no btca references in skill files",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [],
+          "verification": {
+            "type": "command",
+            "command": "grep -r 'btca' .claude/skills/ || echo 'No btca references found'",
+            "expected": "No btca references found"
+          },
+          "implementation_notes": "Critical constraint - btca must not appear in final skill content",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-4-2",
+          "description": "Verify YAML frontmatter is valid in all SKILL.md files",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [],
+          "verification": {
+            "type": "command",
+            "command": "head -10 .claude/skills/plone-restapi-backend/SKILL.md .claude/skills/plone-restapi-client/SKILL.md | grep -c '^---'",
+            "expected": "4"
+          },
+          "implementation_notes": "Each SKILL.md must have opening and closing --- for YAML frontmatter",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-4-3",
+          "description": "Verify endpoint coverage completeness against official documentation",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [],
+          "verification": {
+            "type": "manual",
+            "instructions": "Compare skill endpoint tables against official Plone REST API docs - all endpoints should be covered"
+          },
+          "implementation_notes": "Final completeness check using btca to verify no endpoints missed",
+          "status": "pending"
+        },
+        {
+          "id": "subtask-4-4",
+          "description": "Review code examples for syntax correctness",
+          "service": "skills",
+          "files_to_modify": [],
+          "files_to_create": [],
+          "patterns_from": [],
+          "verification": {
+            "type": "manual",
+            "instructions": "Visually review Python and JavaScript code blocks for syntax errors, missing imports, incomplete examples"
+          },
+          "implementation_notes": "Ensure all code examples are complete, runnable, and follow established patterns",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_phases": 4,
+    "total_subtasks": 14,
+    "services_involved": [
+      "plone-restapi-backend",
+      "plone-restapi-client"
+    ],
+    "parallelism": {
+      "max_parallel_phases": 2,
+      "parallel_groups": [
+        {
+          "phases": [
+            "phase-2-backend-enhancement",
+            "phase-3-client-enhancement"
+          ],
+          "reason": "Both depend only on phase-1-research, modify different files"
+        }
+      ],
+      "recommended_workers": 1,
+      "speedup_estimate": "1.5x if using 2 workers for phases 2 and 3"
+    },
+    "startup_command": "N/A - Documentation project, no services to start"
+  },
+  "verification_strategy": {
+    "risk_level": "low",
+    "skip_validation": false,
+    "minimal_mode": true,
+    "test_creation_phase": "not_applicable",
+    "test_types_required": [],
+    "security_scanning_required": false,
+    "staging_deployment_required": false,
+    "acceptance_criteria": [
+      "All Plone REST API endpoints documented in skill files",
+      "Both JavaScript/TypeScript AND Python examples for major categories",
+      "No btca references in final skill content",
+      "Valid YAML frontmatter in all SKILL.md files",
+      "Code examples are syntactically correct"
+    ],
+    "verification_steps": [
+      {
+        "name": "btca Independence Check",
+        "command": "grep -r 'btca' .claude/skills/ || echo 'PASS: No btca references'",
+        "expected_outcome": "No btca references found",
+        "type": "lint",
+        "required": true,
+        "blocking": true
+      },
+      {
+        "name": "YAML Frontmatter Check",
+        "command": "head -5 .claude/skills/*/SKILL.md",
+        "expected_outcome": "All files start with valid YAML frontmatter",
+        "type": "lint",
+        "required": true,
+        "blocking": true
+      },
+      {
+        "name": "Endpoint Table Coverage",
+        "command": "grep -c '| `@' .claude/skills/plone-restapi-client/SKILL.md",
+        "expected_outcome": "Comprehensive endpoint count matching official docs",
+        "type": "lint",
+        "required": true,
+        "blocking": false
+      }
+    ],
+    "reasoning": "Low risk documentation project - verification focuses on completeness and structural integrity rather than functional testing"
+  },
+  "qa_acceptance": {
+    "unit_tests": {
+      "required": false,
+      "commands": [],
+      "minimum_coverage": null,
+      "reason": "Documentation project - no executable code to test"
+    },
+    "integration_tests": {
+      "required": false,
+      "commands": [],
+      "services_to_test": [],
+      "reason": "No service integration - pure documentation"
+    },
+    "e2e_tests": {
+      "required": false,
+      "commands": [],
+      "flows": [],
+      "reason": "No user flows - documentation reference material"
+    },
+    "browser_verification": {
+      "required": false,
+      "pages": [],
+      "reason": "Documentation viewed in code editor, not browser"
+    },
+    "database_verification": {
+      "required": false,
+      "checks": [],
+      "reason": "No database involved"
+    },
+    "documentation_checks": {
+      "required": true,
+      "checks": [
+        "All endpoint categories covered",
+        "Dual-language examples (JS/TS + Python)",
+        "Valid Markdown formatting",
+        "No placeholder content",
+        "Self-contained without btca dependency"
+      ]
+    }
+  },
+  "qa_signoff": null
+}

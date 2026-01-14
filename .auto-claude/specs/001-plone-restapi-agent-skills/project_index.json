@@ -1,0 +1,39 @@
+{
+  "project_root": "/home/maik/develop/claude/plone-restapi-skills",
+  "project_type": "single",
+  "services": {
+    "skills": {
+      "path": ".claude/skills",
+      "tech_stack": ["markdown", "yaml"],
+      "description": "Claude Code agent skills for Plone REST API",
+      "subdirectories": {
+        "plone-restapi-backend": "Backend development patterns (Python/Plone)",
+        "plone-restapi-client": "Client development patterns (JS/TS/Python)"
+      }
+    }
+  },
+  "infrastructure": {
+    "docker": false,
+    "database": null,
+    "ci_cd": null
+  },
+  "conventions": {
+    "skill_format": "YAML frontmatter with Markdown content",
+    "code_blocks": "Fenced with language identifiers",
+    "tables": "Markdown tables for endpoint references",
+    "dual_language": "JavaScript/TypeScript AND Python examples required"
+  },
+  "tools": {
+    "btca": {
+      "purpose": "Documentation fetching during implementation ONLY",
+      "resources": ["ploneRestapi", "plone", "ploneVolto"],
+      "note": "DO NOT include btca in final skill content"
+    }
+  },
+  "key_files": {
+    "backend_skill": ".claude/skills/plone-restapi-backend/SKILL.md",
+    "backend_reference": ".claude/skills/plone-restapi-backend/reference.md",
+    "client_skill": ".claude/skills/plone-restapi-client/SKILL.md",
+    "client_reference": ".claude/skills/plone-restapi-client/reference.md"
+  }
+}

@@ -1,0 +1,90 @@
+=== AUTO-BUILD PROGRESS ===
+
+Project: Plone REST API Agent Skills Enhancement
+Workspace: /home/maik/develop/claude/plone-restapi-skills
+Started: 2026-01-14
+
+Workflow Type: feature
+Rationale: Extending existing documentation-based skills to comprehensively cover ALL Plone REST API documentation chapters. Pure documentation work with no infrastructure changes.
+
+Session 1 (Planner):
+- Completed Phase 0: Deep codebase investigation
+- Created/updated project_index.json with skill structure
+- Created/updated context.json with task context
+- Created implementation_plan.json with 4 phases, 14 subtasks
+- Created init.sh for environment verification
+- Created build-progress.txt
+
+Phase Summary:
+- Phase 1 (Documentation Research): 3 subtasks, depends on []
+  - Use btca to fetch ALL Plone REST API Usage and Endpoints chapters
+  - Create gap analysis comparing current skills to official docs
+
+- Phase 2 (Backend Skill Enhancement): 3 subtasks, depends on [phase-1]
+  - Fetch detailed backend patterns from official docs
+  - Update SKILL.md with missing service patterns
+  - Update reference.md with additional examples
+
+- Phase 3 (Client Skill Enhancement): 5 subtasks, depends on [phase-1]
+  - Fetch detailed endpoint documentation
+  - Update SKILL.md endpoint tables with missing endpoints
+  - Add JavaScript/TypeScript examples for new endpoints
+  - Add Python examples for new endpoints
+  - Update reference.md with additional patterns
+
+- Phase 4 (Verification): 4 subtasks, depends on [phase-2, phase-3]
+  - Verify no btca references in skill files
+  - Verify YAML frontmatter validity
+  - Verify endpoint coverage completeness
+  - Review code examples for syntax correctness
+
+Services Involved:
+- plone-restapi-backend: Backend development patterns (Python/Plone services)
+- plone-restapi-client: Client development patterns (JS/TS/Python)
+
+Files to Modify:
+- .claude/skills/plone-restapi-backend/SKILL.md
+- .claude/skills/plone-restapi-backend/reference.md
+- .claude/skills/plone-restapi-client/SKILL.md
+- .claude/skills/plone-restapi-client/reference.md
+
+Current Skill Status (Pre-Enhancement):
+- Backend SKILL.md: ~525 lines (comprehensive service patterns)
+- Backend reference.md: ~440 lines (7 advanced examples)
+- Client SKILL.md: ~1150 lines (endpoint tables + client implementations)
+- Client reference.md: ~693 lines (TypeScript, Vue, Svelte, CLI)
+
+Parallelism Analysis:
+- Max parallel phases: 2
+- Recommended workers: 1 (conservative for documentation work)
+- Parallel groups: [phase-2-backend-enhancement, phase-3-client-enhancement]
+  (Both depend only on phase-1, modify different files)
+
+Critical Constraints:
+- btca tool used ONLY during implementation for documentation research
+- btca must NOT appear in final skill content
+- Both JavaScript/TypeScript AND Python examples required
+- Skills must be self-contained documentation
+
+Verification Strategy:
+- Risk Level: low
+- No automated tests (documentation project)
+- Focus on completeness and structural integrity
+- Key checks: btca independence, YAML validity, endpoint coverage
+
+=== STARTUP COMMAND ===
+
+To continue building this spec, the coder agent should:
+
+1. Run init.sh to verify environment:
+   cd /home/maik/develop/claude/plone-restapi-skills
+   bash .auto-claude/specs/001-plone-restapi-agent-skills/init.sh
+
+2. Begin with Phase 1 (Documentation Research):
+   - Use btca to fetch Plone REST API documentation
+   - Identify gaps in current skill coverage
+   - Document findings before proceeding to enhancement phases
+
+Note: This is a documentation project - no services to start.
+
+=== END SESSION 1 (PLANNING) ===
