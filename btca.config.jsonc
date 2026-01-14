@@ -1,0 +1,31 @@
+{
+    "$schema": "https://btca.dev/btca.schema.json",
+    "resources": [
+        {
+            "name": "ploneRestapi",
+            "type": "git",
+            "url": "https://github.com/plone/plone.restapi",
+            "branch": "main",
+            "searchPath": "docs",
+            "specialNotes": "plone.restapi source and documentation. Focus on docs/ for API reference and src/ for implementation patterns."
+        },
+        {
+            "name": "plone",
+            "type": "git",
+            "url": "https://github.com/plone/documentation",
+            "branch": "main",
+            "searchPath": "docs",
+            "specialNotes": "Official Plone documentation. Covers backend, content types, workflows, and configuration."
+        },
+        {
+            "name": "ploneVolto",
+            "type": "git",
+            "url": "https://github.com/plone/volto",
+            "branch": "main",
+            "searchPath": "docs",
+            "specialNotes": "Volto React frontend for Plone. Focus on docs/ for guides and packages/ for component patterns."
+        }
+    ],
+    "model": "claude-haiku-4-5",
+    "provider": "opencode"
+}
