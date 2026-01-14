@@ -1,0 +1,12 @@
+{
+  "$schema": "https://claude.ai/schemas/marketplace.json",
+  "name": "plone-restapi-skills",
+  "displayName": "Plone REST API Skills",
+  "description": "Skills for working with Plone REST API - backend development and client integration",
+  "plugins": [
+    {
+      "name": "plone-restapi-skills",
+      "path": "."
+    }
+  ]
+}
