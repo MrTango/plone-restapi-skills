@@ -522,4 +522,481 @@ install_requires=[
 6. **Test all endpoints** - Write integration tests for services
 7. **Document with OpenAPI** - Add Swagger documentation for complex APIs
 
+---
+
+## Built-in Endpoint Patterns
+
+When extending or overriding built-in endpoints, follow these patterns:
+
+### Content Copy/Move Service
+
+```python
+from plone.restapi.services import Service
+from plone.restapi.deserializer import json_body
+from plone import api
+from zope.component import getMultiAdapter
+
+class CopyService(Service):
+    """Custom copy service with validation."""
+
+    def reply(self):
+        data = json_body(self.request)
+        source = data.get("source")
+
+        if not source:
+            self.request.response.setStatus(400)
+            return {"error": "source is required"}
+
+        sources = source if isinstance(source, list) else [source]
+        results = []
+
+        for src in sources:
+            obj = self._resolve_object(src)
+            if obj is None:
+                continue
+
+            clipboard = api.content.copy(source=obj, target=self.context)
+            results.append({
+                "source": obj.absolute_url(),
+                "target": clipboard.absolute_url()
+            })
+
+        return results
+
+    def _resolve_object(self, ref):
+        # Handle UID, path, or URL
+        if ref.startswith('http'):
+            path = ref.split('/Plone')[-1]
+            return api.content.get(path=path)
+        elif len(ref) == 32:
+            return api.content.get(UID=ref)
+        else:
+            return api.content.get(path=ref)
+```
+
+### Comments Service
+
+```python
+from plone.restapi.services import Service
+from plone.restapi.deserializer import json_body
+from plone.app.discussion.interfaces import IConversation
+
+class CommentsService(Service):
+    """Custom comments handling."""
+
+    def reply(self):
+        conversation = IConversation(self.context)
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@comments",
+            "items_total": len(conversation),
+            "items": [
+                self._serialize_comment(comment)
+                for comment in conversation.getComments()
+            ]
+        }
+
+    def _serialize_comment(self, comment):
+        return {
+            "@id": f"{self.context.absolute_url()}/@comments/{comment.comment_id}",
+            "comment_id": comment.comment_id,
+            "text": {"data": comment.text, "mime-type": "text/plain"},
+            "author_name": comment.author_name,
+            "creation_date": comment.creation_date.isoformat(),
+        }
+```
+
+### Locking Service
+
+```python
+from plone.restapi.services import Service
+from plone.locking.interfaces import ILockable
+from plone.restapi.deserializer import json_body
+
+class LockService(Service):
+    """Content locking service."""
+
+    def reply(self):
+        lockable = ILockable(self.context, None)
+        if lockable is None:
+            self.request.response.setStatus(400)
+            return {"error": "Content is not lockable"}
+
+        data = json_body(self.request)
+        timeout = data.get("timeout", 600)
+        stealable = data.get("stealable", True)
+
+        lockable.lock(timeout=timeout)
+
+        return {
+            "locked": True,
+            "stealable": stealable,
+            "timeout": timeout,
+            "token": lockable.lock_info()["token"],
+        }
+```
+
+### History/Versioning Service
+
+```python
+from plone.restapi.services import Service
+from Products.CMFEditions.interfaces import IArchivist
+
+class HistoryService(Service):
+    """Content versioning history."""
+
+    def reply(self):
+        archivist = IArchivist(self.context)
+        history = []
+
+        for version in archivist.queryHistory():
+            history.append({
+                "@id": f"{self.context.absolute_url()}/@history/{version.version_id}",
+                "version": version.version_id,
+                "actor": {"id": version.principal},
+                "time": version.sys_metadata["timestamp"],
+                "comments": version.sys_metadata.get("comment", ""),
+            })
+
+        return history
+```
+
+### Working Copy Service
+
+```python
+from plone.restapi.services import Service
+from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
+
+class WorkingCopyService(Service):
+    """Check-out/check-in workflow."""
+
+    def reply(self):
+        policy = ICheckinCheckoutPolicy(self.context, None)
+        if policy is None:
+            self.request.response.setStatus(400)
+            return {"error": "Working copy not supported"}
+
+        working_copy = policy.getWorkingCopy()
+        baseline = policy.getBaseline()
+
+        return {
+            "working_copy": {
+                "@id": working_copy.absolute_url(),
+                "title": working_copy.title,
+            } if working_copy else None,
+            "working_copy_of": {
+                "@id": baseline.absolute_url(),
+            } if baseline else None,
+        }
+```
+
+### Relations Service
+
+```python
+from plone.restapi.services import Service
+from zc.relation.interfaces import ICatalog
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
+from plone.restapi.deserializer import json_body
+
+class RelationsService(Service):
+    """Manage content relations."""
+
+    def reply(self):
+        catalog = getUtility(ICatalog)
+        intids = getUtility(IIntIds)
+
+        # Query for relations
+        relations = {}
+        for relation in catalog.findRelations():
+            rel_name = relation.from_attribute
+            if rel_name not in relations:
+                relations[rel_name] = {"items": [], "items_total": 0}
+
+            relations[rel_name]["items"].append({
+                "source": relation.from_object.absolute_url(),
+                "target": relation.to_object.absolute_url(),
+            })
+            relations[rel_name]["items_total"] += 1
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@relations",
+            "relations": relations,
+        }
+```
+
+### Sharing Service
+
+```python
+from plone.restapi.services import Service
+from plone.restapi.deserializer import json_body
+from plone.api import portal
+
+class SharingService(Service):
+    """Local role assignments."""
+
+    def reply(self):
+        # Available roles from portal
+        available_roles = [
+            {"id": "Contributor", "title": "Can add"},
+            {"id": "Editor", "title": "Can edit"},
+            {"id": "Reader", "title": "Can view"},
+            {"id": "Reviewer", "title": "Can review"},
+        ]
+
+        # Get local role assignments
+        entries = []
+        for principal, roles in self.context.get_local_roles():
+            entries.append({
+                "id": principal,
+                "roles": {role: True for role in roles},
+                "type": "user",  # or "group"
+            })
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@sharing",
+            "available_roles": available_roles,
+            "entries": entries,
+            "inherit": getattr(self.context, "__ac_local_roles_block__", False) is False,
+        }
+```
+
+### Aliases Service
+
+```python
+from plone.restapi.services import Service
+from plone.app.redirector.interfaces import IRedirectionStorage
+from zope.component import getUtility
+from plone.restapi.deserializer import json_body
+
+class AliasesService(Service):
+    """URL alias management."""
+
+    def reply(self):
+        storage = getUtility(IRedirectionStorage)
+        path = "/".join(self.context.getPhysicalPath())
+
+        redirects = storage.redirects(path)
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@aliases",
+            "items": [
+                {"path": redirect}
+                for redirect in redirects
+            ]
+        }
+```
+
+### Translations Service
+
+```python
+from plone.restapi.services import Service
+from plone.app.multilingual.interfaces import ITranslationManager
+
+class TranslationsService(Service):
+    """Multilingual content links."""
+
+    def reply(self):
+        manager = ITranslationManager(self.context)
+        translations = manager.get_translations()
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@translations",
+            "items": [
+                {"@id": obj.absolute_url(), "language": lang}
+                for lang, obj in translations.items()
+                if obj != self.context
+            ]
+        }
+```
+
+### Groups Service
+
+```python
+from plone.restapi.services import Service
+from plone import api
+from plone.restapi.deserializer import json_body
+
+class GroupsService(Service):
+    """User groups management."""
+
+    def reply(self):
+        query = self.request.form.get("query", "")
+        limit = int(self.request.form.get("limit", 25))
+
+        groups = api.group.get_groups()
+        if query:
+            groups = [g for g in groups if query.lower() in g.getId().lower()]
+
+        return [
+            {
+                "@id": f"{api.portal.get().absolute_url()}/@groups/{g.getId()}",
+                "id": g.getId(),
+                "groupname": g.getId(),
+                "title": g.getProperty("title", ""),
+                "description": g.getProperty("description", ""),
+                "email": g.getProperty("email", ""),
+                "roles": list(g.getRoles()),
+            }
+            for g in groups[:limit]
+        ]
+```
+
+### Control Panels Service
+
+```python
+from plone.restapi.services import Service
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+from plone.restapi.deserializer import json_body
+
+class ControlPanelService(Service):
+    """Registry-based control panel."""
+
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        self.panel_id = None
+
+    def publishTraverse(self, request, name):
+        self.panel_id = name
+        return self
+
+    def reply(self):
+        registry = getUtility(IRegistry)
+
+        if not self.panel_id:
+            # List all panels
+            return self._list_panels()
+
+        # Get specific panel
+        return self._get_panel(registry)
+
+    def _list_panels(self):
+        return [
+            {"@id": f"{self.context.absolute_url()}/@controlpanels/mail",
+             "title": "Mail Settings", "group": "general"},
+            # ... other panels
+        ]
+
+    def _get_panel(self, registry):
+        # Return panel schema and data
+        return {
+            "@id": f"{self.context.absolute_url()}/@controlpanels/{self.panel_id}",
+            "title": "Panel Title",
+            "schema": {},  # JSON Schema
+            "data": {},    # Current values
+        }
+```
+
+### Add-ons Service
+
+```python
+from plone.restapi.services import Service
+from Products.CMFPlone.interfaces import INonInstallable
+from Products.GenericSetup import EXTENSION
+from zope.component import getAllUtilitiesRegisteredFor
+
+class AddonsService(Service):
+    """Add-on management."""
+
+    def reply(self):
+        from Products.CMFPlone.factory import _get_packages
+
+        packages = _get_packages()
+        addons = []
+
+        for pkg in packages:
+            addons.append({
+                "@id": f"{self.context.absolute_url()}/@addons/{pkg.project_name}",
+                "id": pkg.project_name,
+                "title": pkg.project_name,
+                "version": pkg.version,
+                "is_installed": self._is_installed(pkg.project_name),
+            })
+
+        return addons
+
+    def _is_installed(self, addon_id):
+        # Check if add-on is installed
+        from Products.CMFPlone.utils import get_installer
+        installer = get_installer(self.context)
+        return installer.is_product_installed(addon_id)
+```
+
+### Site Info Service
+
+```python
+from plone.restapi.services import Service
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+
+class SiteService(Service):
+    """Site-wide information."""
+
+    def reply(self):
+        registry = getUtility(IRegistry)
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@site",
+            "plone.site_title": registry.get("plone.site_title", ""),
+            "plone.default_language": registry.get("plone.default_language", "en"),
+            "plone.available_languages": registry.get("plone.available_languages", ["en"]),
+            "plone.portal_timezone": registry.get("plone.portal_timezone", "UTC"),
+        }
+```
+
+### Types Schema Service
+
+```python
+from plone.restapi.services import Service
+from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import getUtility
+
+class TypesService(Service):
+    """Content type schema management."""
+
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        self.type_id = None
+
+    def publishTraverse(self, request, name):
+        self.type_id = name
+        return self
+
+    def reply(self):
+        if not self.type_id:
+            # List all types
+            from plone.dexterity.interfaces import IDexterityFTI
+            from zope.component import getAllUtilitiesRegisteredFor
+
+            return [
+                {
+                    "@id": f"{self.context.absolute_url()}/@types/{fti.getId()}",
+                    "title": fti.title,
+                    "addable": fti.global_allow,
+                }
+                for fti in getAllUtilitiesRegisteredFor(IDexterityFTI)
+            ]
+
+        # Get specific type schema
+        fti = getUtility(IDexterityFTI, name=self.type_id)
+        schema = fti.lookupSchema()
+
+        return {
+            "@id": f"{self.context.absolute_url()}/@types/{self.type_id}",
+            "title": fti.title,
+            "description": fti.description,
+            "fieldsets": self._get_fieldsets(schema),
+            "properties": self._get_properties(schema),
+        }
+
+    def _get_fieldsets(self, schema):
+        # Extract fieldsets from schema
+        return []
+
+    def _get_properties(self, schema):
+        # Extract field properties
+        return {}
+```
+
 For complete examples, see [reference.md](reference.md).
