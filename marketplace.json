@@ -1,0 +1,15 @@
+{
+  "$schema": "https://claude.ai/schemas/marketplace.json",
+  "name": "plone-restapi-skills",
+  "description": "Skills for working with Plone REST API - client development, backend services, and more",
+  "version": "1.0.0",
+  "author": "MrTango",
+  "repository": "https://github.com/MrTango/plone-restapi-skills",
+  "skills": [
+    {
+      "name": "plone-restapi-client",
+      "path": ".claude/skills/plone-restapi-client",
+      "description": "Consume Plone REST API from JavaScript and Python clients. Use when fetching content, navigation, breadcrumbs from Plone, authenticating with JWT, making CRUD operations via HTTP, or building frontend apps."
+    }
+  ]
+}

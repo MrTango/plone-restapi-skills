@@ -1,0 +1,78 @@
+{
+  ".auto-claude-security.json": {
+    "file_path": ".auto-claude-security.json",
+    "baseline_commit": "9b22091c26af78a4a088eba31f1ef13f916ca018",
+    "baseline_captured_at": "2026-01-14T18:54:49.582156",
+    "baseline_content_hash": "e3b0c44298fc1c14",
+    "baseline_snapshot_path": "",
+    "task_snapshots": [
+      {
+        "task_id": "001-plone-restapi-agent-skills",
+        "task_intent": "",
+        "started_at": "2026-01-14T18:54:49.582272",
+        "completed_at": "2026-01-14T18:54:49.586436",
+        "content_hash_before": "e3b0c44298fc1c14",
+        "content_hash_after": "7be9a5e2440cf49f",
+        "semantic_changes": [],
+        "raw_diff": "diff --git a/.auto-claude-security.json b/.auto-claude-security.json\nnew file mode 100644\nindex 0000000..489c091\n--- /dev/null\n+++ b/.auto-claude-security.json\n@@ -0,0 +1,153 @@\n+{\n+  \"base_commands\": [\n+    \".\",\n+    \"[\",\n+    \"[[\",\n+    \"ag\",\n+    \"awk\",\n+    \"basename\",\n+    \"bash\",\n+    \"bc\",\n+    \"break\",\n+    \"cat\",\n+    \"cd\",\n+    \"chmod\",\n+    \"clear\",\n+    \"cmp\",\n+    \"column\",\n+    \"comm\",\n+    \"command\",\n+    \"continue\",\n+    \"cp\",\n+    \"curl\",\n+    \"cut\",\n+    \"date\",\n+    \"df\",\n+    \"diff\",\n+    \"dig\",\n+    \"dirname\",\n+    \"du\",\n+    \"echo\",\n+    \"egrep\",\n+    \"env\",\n+    \"eval\",\n+    \"exec\",\n+    \"exit\",\n+    \"expand\",\n+    \"export\",\n+    \"expr\",\n+    \"false\",\n+    \"fd\",\n+    \"fgrep\",\n+    \"file\",\n+    \"find\",\n+    \"fmt\",\n+    \"fold\",\n+    \"gawk\",\n+    \"gh\",\n+    \"git\",\n+    \"grep\",\n+    \"gunzip\",\n+    \"gzip\",\n+    \"head\",\n+    \"help\",\n+    \"host\",\n+    \"iconv\",\n+    \"id\",\n+    \"jobs\",\n+    \"join\",\n+    \"jq\",\n+    \"kill\",\n+    \"killall\",\n+    \"less\",\n+    \"let\",\n+    \"ln\",\n+    \"ls\",\n+    \"lsof\",\n+    \"man\",\n+    \"mkdir\",\n+    \"mktemp\",\n+    \"more\",\n+    \"mv\",\n+    \"nl\",\n+    \"paste\",\n+    \"pgrep\",\n+    \"ping\",\n+    \"pkill\",\n+    \"popd\",\n+    \"printenv\",\n+    \"printf\",\n+    \"ps\",\n+    \"pushd\",\n+    \"pwd\",\n+    \"read\",\n+    \"readlink\",\n+    \"realpath\",\n+    \"reset\",\n+    \"return\",\n+    \"rev\",\n+    \"rg\",\n+    \"rm\",\n+    \"rmdir\",\n+    \"sed\",\n+    \"seq\",\n+    \"set\",\n+    \"sh\",\n+    \"shuf\",\n+    \"sleep\",\n+    \"sort\",\n+    \"source\",\n+    \"split\",\n+    \"stat\",\n+    \"tail\",\n+    \"tar\",\n+    \"tee\",\n+    \"test\",\n+    \"time\",\n+    \"timeout\",\n+    \"touch\",\n+    \"tr\",\n+    \"tree\",\n+    \"true\",\n+    \"type\",\n+    \"uname\",\n+    \"unexpand\",\n+    \"uniq\",\n+    \"unset\",\n+    \"unzip\",\n+    \"watch\",\n+    \"wc\",\n+    \"wget\",\n+    \"whereis\",\n+    \"which\",\n+    \"whoami\",\n+    \"xargs\",\n+    \"yes\",\n+    \"yq\",\n+    \"zip\",\n+    \"zsh\"\n+  ],\n+  \"stack_commands\": [],\n+  \"script_commands\": [],\n+  \"custom_commands\": [],\n+  \"detected_stack\": {\n+    \"languages\": [],\n+    \"package_managers\": [],\n+    \"frameworks\": [],\n+    \"databases\": [],\n+    \"infrastructure\": [],\n+    \"cloud_providers\": [],\n+    \"code_quality_tools\": [],\n+    \"version_managers\": []\n+  },\n+  \"custom_scripts\": {\n+    \"npm_scripts\": [],\n+    \"make_targets\": [],\n+    \"poetry_scripts\": [],\n+    \"cargo_aliases\": [],\n+    \"shell_scripts\": []\n+  },\n+  \"project_dir\": \"/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills\",\n+  \"created_at\": \"2026-01-14T16:42:57.728754\",\n+  \"project_hash\": \"76d7462babe668acba6de154fe2d356d\"\n+}\n\\ No newline at end of file\n"
+      }
+    ]
+  },
+  ".auto-claude-status": {
+    "file_path": ".auto-claude-status",
+    "baseline_commit": "9b22091c26af78a4a088eba31f1ef13f916ca018",
+    "baseline_captured_at": "2026-01-14T18:54:49.597629",
+    "baseline_content_hash": "e3b0c44298fc1c14",
+    "baseline_snapshot_path": "",
+    "task_snapshots": [
+      {
+        "task_id": "001-plone-restapi-agent-skills",
+        "task_intent": "",
+        "started_at": "2026-01-14T18:54:49.597705",
+        "completed_at": "2026-01-14T18:54:49.597967",
+        "content_hash_before": "e3b0c44298fc1c14",
+        "content_hash_after": "263a4a4f597b86ac",
+        "semantic_changes": [],
+        "raw_diff": "diff --git a/.auto-claude-status b/.auto-claude-status\nnew file mode 100644\nindex 0000000..a358935\n--- /dev/null\n+++ b/.auto-claude-status\n@@ -0,0 +1,25 @@\n+{\n+  \"active\": true,\n+  \"spec\": \"001-plone-restapi-agent-skills\",\n+  \"state\": \"building\",\n+  \"subtasks\": {\n+    \"completed\": 0,\n+    \"total\": 15,\n+    \"in_progress\": 1,\n+    \"failed\": 0\n+  },\n+  \"phase\": {\n+    \"current\": \"Documentation Research\",\n+    \"id\": null,\n+    \"total\": 3\n+  },\n+  \"workers\": {\n+    \"active\": 0,\n+    \"max\": 1\n+  },\n+  \"session\": {\n+    \"number\": 1,\n+    \"started_at\": \"2026-01-14T16:42:48.582159\"\n+  },\n+  \"last_update\": \"2026-01-14T16:42:48.654833\"\n+}\n\\ No newline at end of file\n"
+      }
+    ]
+  },
+  ".claude_settings.json": {
+    "file_path": ".claude_settings.json",
+    "baseline_commit": "9b22091c26af78a4a088eba31f1ef13f916ca018",
+    "baseline_captured_at": "2026-01-14T18:54:49.606860",
+    "baseline_content_hash": "e3b0c44298fc1c14",
+    "baseline_snapshot_path": "",
+    "task_snapshots": [
+      {
+        "task_id": "001-plone-restapi-agent-skills",
+        "task_intent": "",
+        "started_at": "2026-01-14T18:54:49.606920",
+        "completed_at": "2026-01-14T18:54:49.607238",
+        "content_hash_before": "e3b0c44298fc1c14",
+        "content_hash_after": "9085ef995bd7e745",
+        "semantic_changes": [],
+        "raw_diff": "diff --git a/.claude_settings.json b/.claude_settings.json\nnew file mode 100644\nindex 0000000..7c7e947\n--- /dev/null\n+++ b/.claude_settings.json\n@@ -0,0 +1,39 @@\n+{\n+  \"sandbox\": {\n+    \"enabled\": true,\n+    \"autoAllowBashIfSandboxed\": true\n+  },\n+  \"permissions\": {\n+    \"defaultMode\": \"acceptEdits\",\n+    \"allow\": [\n+      \"Read(./**)\",\n+      \"Write(./**)\",\n+      \"Edit(./**)\",\n+      \"Glob(./**)\",\n+      \"Grep(./**)\",\n+      \"Read(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/**)\",\n+      \"Write(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/**)\",\n+      \"Edit(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/**)\",\n+      \"Glob(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/**)\",\n+      \"Grep(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/**)\",\n+      \"Read(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)\",\n+      \"Write(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)\",\n+      \"Edit(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/worktrees/tasks/001-plone-restapi-agent-skills/.auto-claude/specs/001-plone-restapi-agent-skills/**)\",\n+      \"Read(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/**)\",\n+      \"Write(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/**)\",\n+      \"Edit(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/**)\",\n+      \"Glob(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/**)\",\n+      \"Grep(/home/maik/develop/claude/plone-restapi-skills/.auto-claude/**)\",\n+      \"Bash(*)\",\n+      \"WebFetch(*)\",\n+      \"WebSearch(*)\",\n+      \"mcp__context7__resolve-library-id(*)\",\n+      \"mcp__context7__get-library-docs(*)\",\n+      \"mcp__graphiti-memory__search_nodes(*)\",\n+      \"mcp__graphiti-memory__search_facts(*)\",\n+      \"mcp__graphiti-memory__add_episode(*)\",\n+      \"mcp__graphiti-memory__get_episodes(*)\",\n+      \"mcp__graphiti-memory__get_entity_edge(*)\"\n+    ]\n+  }\n+}\n\\ No newline at end of file\n"
+      }
+    ]
+  },
+  ".gitignore": {
+    "file_path": ".gitignore",
+    "baseline_commit": "9b22091c26af78a4a088eba31f1ef13f916ca018",
+    "baseline_captured_at": "2026-01-14T18:54:49.617314",
+    "baseline_content_hash": "d02b37f46f91c0b8",
+    "baseline_snapshot_path": "",
+    "task_snapshots": [
+      {
+        "task_id": "001-plone-restapi-agent-skills",
+        "task_intent": "",
+        "started_at": "2026-01-14T18:54:49.617377",
+        "completed_at": "2026-01-14T18:54:49.617548",
+        "content_hash_before": "d02b37f46f91c0b8",
+        "content_hash_after": "ff2bbe36ac78c101",
+        "semantic_changes": [],
+        "raw_diff": "diff --git a/.gitignore b/.gitignore\nindex 3258f57..112d9a4 100644\n--- a/.gitignore\n+++ b/.gitignore\n@@ -1 +1,4 @@\n .btca\n+\n+# Auto Claude data directory\n+.auto-claude/\n"
+      }
+    ]
+  }
+}
