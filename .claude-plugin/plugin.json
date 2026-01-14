@@ -1,8 +1,10 @@
 {
   "name": "plone-restapi-skills",
-  "displayName": "Plone REST API Skills",
   "description": "Skills for working with Plone REST API - client development and backend services",
   "version": "1.0.0",
-  "author": "MrTango",
+  "author": {
+    "name": "MrTango",
+    "email": "maik@planetcrypton.de"
+  },
   "repository": "https://github.com/MrTango/plone-restapi-skills"
 }
