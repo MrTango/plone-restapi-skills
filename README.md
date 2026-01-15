@@ -13,6 +13,15 @@ claude plugin marketplace add https://github.com/MrTango/plone-restapi-skills
 claude plugin install plone-restapi-skills
 ```
 
+### Linux Users (separate /tmp partition)
+
+  If you get an `EXDEV: cross-device link not permitted` error, create and set a local TMPDIR first:
+
+  ```bash
+  mkdir -p ~/.claude/tmp
+  TMPDIR=~/.claude/tmp claude plugin install plone-restapi-skills
+  ```
+
 Restart Claude Code to load the plugin.
 
 ### Verify Installation
